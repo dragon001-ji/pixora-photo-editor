@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixora | Photo Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#">✦ Pixora</a>
+    <span class="tagline">Your photos, your creativity.</span>
+  </header>
+
+  <main class="app">
+    <section class="intro">
+      <p class="eyebrow">CREATIVE STUDIO</p>
+      <h1>Make every photo <span>extraordinary.</span></h1>
+      <p>Upload an image, experiment with edits, and download your creation.</p>
+    </section>
+
+    <section class="editor">
+      <aside class="tools">
+        <h2>Edit your photo</h2>
+        <label class="upload" for="upload">＋ Choose a photo</label>
+        <input id="upload" type="file" accept="image/*" hidden>
+
+        <div class="control">
+          <label for="brightness">☀ Brightness <output id="brightnessValue">100%</output></label>
+          <input id="brightness" type="range" min="0" max="200" value="100">
+        </div>
+
+        <div class="control">
+          <label for="contrast">◐ Contrast <output id="contrastValue">100%</output></label>
+          <input id="contrast" type="range" min="0" max="200" value="100">
+        </div>
+
+        <div class="control">
+          <label for="saturation">🎨 Saturation <output id="saturationValue">100%</output></label>
+          <input id="saturation" type="range" min="0" max="200" value="100">
+        </div>
+
+        <h3>Quick filters</h3>
+        <div class="filters">
+          <button data-filter="none" class="filter active">Original</button>
+          <button data-filter="grayscale(100%)" class="filter">B&W</button>
+          <button data-filter="sepia(80%)" class="filter">Vintage</button>
+          <button data-filter="saturate(160%)" class="filter">Vivid</button>
+          <button data-filter="hue-rotate(90deg)" class="filter">Color Pop</button>
+        </div>
+
+        <div class="actions">
+          <button id="rotate" class="secondary">↻ Rotate</button>
+          <button id="reset" class="secondary">Reset</button>
+          <button id="download" class="download">Download photo ↓</button>
+        </div>
+      </aside>
+
+      <section class="preview">
+        <div class="preview-heading">
+          <span>LIVE PREVIEW</span>
+          <span id="status">No photo selected</span>
+        </div>
+        <div class="canvas-area" id="canvasArea">
+          <div class="placeholder" id="placeholder">
+            <div class="placeholder-icon">✧</div>
+            <h2>Your canvas awaits</h2>
+            <p>Choose a photo to start creating.</p>
+            <label for="upload" class="upload small">Upload an image</label>
+          </div>
+          <img id="photo" alt="Your photo preview" hidden>
+        </div>
+        <p class="hint">Your photo is edited in your browser.</p>
+      </section>
+    </section>
+    <footer>Made with ♥ using Pixora · Create something beautiful.</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
