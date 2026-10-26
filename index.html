@@ -3,79 +3,684 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixora | Photo Editor</title>
+  <title>DracAid | Emergency Response</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .brand-icon.dragon-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      color: #171318;
+      background: #fce7ef;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .brand-icon.dragon-logo svg {
+      display: block;
+      width: 38px;
+      height: 38px;
+    }
+  </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <a class="logo" href="#">✦ Pixora</a>
-    <span class="tagline">Your photos, your creativity.</span>
-  </header>
+<div class="app">
 
-  <main class="app">
-    <section class="intro">
-      <p class="eyebrow">CREATIVE STUDIO</p>
-      <h1>Make every photo <span>extraordinary.</span></h1>
-      <p>Upload an image, experiment with edits, and download your creation.</p>
-    </section>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon dragon-logo"
+           role="img"
+           aria-label="Dragon with medical cross">
 
-    <section class="editor">
-      <aside class="tools">
-        <h2>Edit your photo</h2>
-        <label class="upload" for="upload">＋ Choose a photo</label>
-        <input id="upload" type="file" accept="image/*" hidden>
+        <svg viewBox="0 0 64 64"
+             xmlns="http://www.w3.org/2000/svg"
+             aria-hidden="true">
 
-        <div class="control">
-          <label for="brightness">☀ Brightness <output id="brightnessValue">100%</output></label>
-          <input id="brightness" type="range" min="0" max="200" value="100">
+          <path
+            d="M11 43c2-7 8-10 14-12-4-4-5-9-3-14l8 7 7-12 3 13 11-4-5 12c5 3 8 7 8 12-5-3-9-3-13-1l-7 9-5-7-9 3-9-6Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+
+          <path
+            d="M26 38h7v-7h7v7h7v7h-7v7h-7v-7h-7z"
+            fill="#e85d8e"
+            stroke="#fff"
+            stroke-width="1.5"
+            stroke-linejoin="round"/>
+
+          <path
+            d="M12 20 7 12l12 4M44 12l8-6-2 13"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div>
+        <h1>DracAid</h1>
+        <small>TEAM DRAGON</small>
+      </div>
+    </div>
+
+    <p class="nav-heading">WORKSPACE</p>
+
+    <button class="nav-item active" data-page="dashboard">
+      <span>▦</span> Command Dashboard
+    </button>
+
+    <button class="nav-item" data-page="intake">
+      <span>＋</span> Rapid Patient Intake
+    </button>
+
+    <button class="nav-item" data-page="monitor">
+      <span>♡</span> Patient Vital Monitor
+    </button>
+
+    <button class="nav-item" data-page="facilities">
+      <span>⌂</span> Facility & Resources
+    </button>
+
+    <div class="sidebar-bottom">
+      <div class="system-card">
+        <span class="live-dot"></span>
+        <strong>Demo system online</strong>
+        <small>Local prototype environment</small>
+      </div>
+
+      <p>DRACAID v1.0 · HACKATHON</p>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">EMERGENCY OPERATIONS</p>
+        <h2 id="pageTitle">Command Dashboard</h2>
+      </div>
+
+      <div class="top-actions">
+        <span class="demo-badge">DEMO MODE</span>
+        <div class="avatar">TD</div>
+      </div>
+    </header>
+
+    <!-- PAGE 1: COMMAND DASHBOARD -->
+    <section class="page active" id="dashboard">
+
+      <div class="welcome">
+        <div>
+          <p class="eyebrow">SITUATIONAL OVERVIEW</p>
+          <h2>Every second matters.</h2>
+          <p>
+            Monitor simulated incidents, patient priorities
+            and evacuation resources.
+          </p>
         </div>
 
-        <div class="control">
-          <label for="contrast">◐ Contrast <output id="contrastValue">100%</output></label>
-          <input id="contrast" type="range" min="0" max="200" value="100">
-        </div>
+        <button class="btn btn-dark" id="refreshBtn">
+          ↻ Refresh overview
+        </button>
+      </div>
 
-        <div class="control">
-          <label for="saturation">🎨 Saturation <output id="saturationValue">100%</output></label>
-          <input id="saturation" type="range" min="0" max="200" value="100">
-        </div>
+      <div class="stats-grid">
 
-        <h3>Quick filters</h3>
-        <div class="filters">
-          <button data-filter="none" class="filter active">Original</button>
-          <button data-filter="grayscale(100%)" class="filter">B&W</button>
-          <button data-filter="sepia(80%)" class="filter">Vintage</button>
-          <button data-filter="saturate(160%)" class="filter">Vivid</button>
-          <button data-filter="hue-rotate(90deg)" class="filter">Color Pop</button>
-        </div>
+        <article class="stat-card">
+          <div class="stat-icon pink">♡</div>
+          <p>Total patients</p>
+          <h3 id="totalCount">0</h3>
+          <small>Registered in demo</small>
+        </article>
 
-        <div class="actions">
-          <button id="rotate" class="secondary">↻ Rotate</button>
-          <button id="reset" class="secondary">Reset</button>
-          <button id="download" class="download">Download photo ↓</button>
-        </div>
-      </aside>
+        <article class="stat-card">
+          <div class="stat-icon red">!</div>
+          <p>Immediate priority</p>
+          <h3 id="immediateCount">0</h3>
+          <small>Requires urgent assessment</small>
+        </article>
 
-      <section class="preview">
-        <div class="preview-heading">
-          <span>LIVE PREVIEW</span>
-          <span id="status">No photo selected</span>
-        </div>
-        <div class="canvas-area" id="canvasArea">
-          <div class="placeholder" id="placeholder">
-            <div class="placeholder-icon">✧</div>
-            <h2>Your canvas awaits</h2>
-            <p>Choose a photo to start creating.</p>
-            <label for="upload" class="upload small">Upload an image</label>
+        <article class="stat-card">
+          <div class="stat-icon yellow">◷</div>
+          <p>Awaiting transport</p>
+          <h3 id="pendingCount">0</h3>
+          <small>Not marked transported</small>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon green">✓</div>
+          <p>Transport recorded</p>
+          <h3 id="transportedCount">0</h3>
+          <small>Demo handoff records</small>
+        </article>
+
+      </div>
+
+      <div class="content-grid">
+
+        <!-- INCIDENT MAP -->
+        <article class="panel map-panel">
+
+          <div class="panel-heading">
+            <div>
+              <h3>Incident map</h3>
+              <p>Illustrative response zones · not live GPS</p>
+            </div>
+
+            <span class="pill pink-pill">4 ZONES</span>
           </div>
-          <img id="photo" alt="Your photo preview" hidden>
-        </div>
-        <p class="hint">Your photo is edited in your browser.</p>
-      </section>
-    </section>
-    <footer>Made with ♥ using Pixora · Create something beautiful.</footer>
-  </main>
 
-  <script src="script.js"></script>
+          <div class="demo-map">
+
+            <div class="map-road road-one"></div>
+            <div class="map-road road-two"></div>
+            <div class="map-road road-three"></div>
+
+            <div class="map-block block-one"></div>
+            <div class="map-block block-two"></div>
+            <div class="map-block block-three"></div>
+            <div class="map-block block-four"></div>
+
+            <button class="map-pin pin-one"
+                    data-zone="Zone A"
+                    title="Zone A">!</button>
+
+            <button class="map-pin pin-two"
+                    data-zone="Zone B"
+                    title="Zone B">2</button>
+
+            <button class="map-pin pin-three"
+                    data-zone="Zone C"
+                    title="Zone C">3</button>
+
+            <button class="map-pin pin-hospital"
+                    data-zone="Hospital A"
+                    title="Hospital A">+</button>
+
+            <span class="map-label label-a">ZONE A</span>
+            <span class="map-label label-b">ZONE B</span>
+            <span class="map-label label-c">ZONE C</span>
+            <span class="map-label label-h">HOSPITAL A</span>
+
+          </div>
+
+          <div class="map-legend">
+            <span>
+              <i class="legend-dot red-dot"></i>
+              Incident
+            </span>
+
+            <span>
+              <i class="legend-dot pink-dot"></i>
+              Response zone
+            </span>
+
+            <span>
+              <i class="legend-dot green-dot"></i>
+              Facility
+            </span>
+          </div>
+
+          <p class="map-feedback" id="mapFeedback">
+            Select a map marker to inspect its demo zone.
+          </p>
+
+        </article>
+
+        <!-- HAZARD ALERTS -->
+        <article class="panel">
+
+          <div class="panel-heading">
+            <div>
+              <h3>Hazard alerts</h3>
+              <p>Simulated operational warnings</p>
+            </div>
+
+            <span class="pill red-pill">MONITOR</span>
+          </div>
+
+          <div id="hazardList" class="stack-list"></div>
+
+          <button class="btn btn-light full" id="addHazardBtn">
+            + Add demo alert
+          </button>
+
+        </article>
+
+      </div>
+
+      <!-- EVENT LOG -->
+      <article class="panel">
+
+        <div class="panel-heading">
+          <div>
+            <h3>Operational event log</h3>
+            <p>Recent activity in this browser session</p>
+          </div>
+
+          <button class="btn btn-light" id="clearLogBtn">
+            Clear log
+          </button>
+        </div>
+
+        <div id="eventLog" class="event-log"></div>
+
+      </article>
+
+    </section>
+
+    <!-- PAGE 2: PATIENT INTAKE -->
+    <section class="page" id="intake">
+
+      <div class="page-intro">
+        <p class="eyebrow">FIELD REGISTRATION</p>
+        <h2>Rapid Patient Intake</h2>
+        <p>
+          Register a patient and calculate a demo triage category
+          from entered vitals.
+        </p>
+      </div>
+
+      <div class="form-layout">
+
+        <!-- PATIENT FORM -->
+        <article class="panel">
+
+          <h3>Patient information</h3>
+          <p class="muted">Fields marked * are required.</p>
+
+          <form id="intakeForm">
+
+            <div class="form-grid">
+
+              <div class="field">
+                <label for="patientName">Patient label *</label>
+                <input
+                  id="patientName"
+                  required
+                  maxlength="60"
+                  placeholder="e.g. Patient 005">
+              </div>
+
+              <div class="field">
+                <label for="tagId">Tag ID *</label>
+                <input
+                  id="tagId"
+                  required
+                  maxlength="20"
+                  placeholder="e.g. TAG-005">
+              </div>
+
+              <div class="field">
+                <label for="zone">Incident zone *</label>
+
+                <select id="zone" required>
+                  <option value="Zone A">Zone A</option>
+                  <option value="Zone B">Zone B</option>
+                  <option value="Zone C">Zone C</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="heartRate">Heart rate (BPM) *</label>
+                <input
+                  id="heartRate"
+                  type="number"
+                  min="1"
+                  max="300"
+                  required
+                  placeholder="e.g. 90">
+              </div>
+
+              <div class="field">
+                <label for="spo2">SpO₂ (%) *</label>
+                <input
+                  id="spo2"
+                  type="number"
+                  min="1"
+                  max="100"
+                  required
+                  placeholder="e.g. 97">
+              </div>
+
+              <div class="field">
+                <label>Blood pressure (mmHg) *</label>
+
+                <div class="bp-inputs">
+                  <input
+                    id="systolic"
+                    type="number"
+                    min="1"
+                    max="350"
+                    required
+                    placeholder="Systolic">
+
+                  <span>/</span>
+
+                  <input
+                    id="diastolic"
+                    type="number"
+                    min="1"
+                    max="250"
+                    required
+                    placeholder="Diastolic">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="notice">
+              Demo only: these thresholds are illustrative,
+              not validated medical triage rules.
+            </div>
+
+            <button class="btn btn-dark full" type="submit">
+              Register patient →
+            </button>
+
+          </form>
+
+        </article>
+
+        <!-- INTAKE SUMMARY -->
+        <article class="panel result-panel">
+
+          <div class="result-symbol">+</div>
+
+          <p class="eyebrow">INTAKE SUMMARY</p>
+
+          <h3 id="intakeResultTitle">
+            Ready for registration
+          </h3>
+
+          <p id="intakeResultText" class="muted">
+            Complete the form to add a patient to your dashboard.
+          </p>
+
+          <div id="intakeResultBadge"></div>
+
+          <div class="result-divider"></div>
+
+          <p class="muted">Total registered patients</p>
+          <h2 id="intakeTotal">4</h2>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- PAGE 3: PATIENT VITAL MONITOR -->
+    <section class="page" id="monitor">
+
+      <div class="page-intro">
+        <p class="eyebrow">PATIENT OBSERVATION</p>
+        <h2>Patient Vital Monitor</h2>
+        <p>
+          Inspect recorded readings, demo trends and transport handoffs.
+        </p>
+      </div>
+
+      <article class="panel">
+
+        <div class="monitor-toolbar">
+
+          <div class="field">
+            <label for="monitorPatient">Select patient</label>
+            <select id="monitorPatient"></select>
+          </div>
+
+          <button id="recordVitalsBtn" class="btn btn-dark">
+            Record demo reading
+          </button>
+
+        </div>
+
+        <div id="deteriorationAlert" class="notice hidden"></div>
+
+      </article>
+
+      <!-- VITAL STATISTICS -->
+      <div class="stats-grid three-stats">
+
+        <article class="stat-card">
+          <p>Heart rate</p>
+          <h3>
+            <span id="monitorHR">--</span>
+            <small>BPM</small>
+          </h3>
+          <p class="muted">Latest recorded value</p>
+        </article>
+
+        <article class="stat-card">
+          <p>Oxygen saturation</p>
+          <h3>
+            <span id="monitorSpO2">--</span>
+            <small>%</small>
+          </h3>
+          <p class="muted">Latest recorded value</p>
+        </article>
+
+        <article class="stat-card">
+          <p>Blood pressure</p>
+          <h3 id="monitorBP">--/--</h3>
+          <p class="muted">Latest recorded value</p>
+        </article>
+
+      </div>
+
+      <!-- VITAL CHART -->
+      <article class="panel">
+
+        <div class="panel-heading">
+          <div>
+            <h3>Vital trends</h3>
+            <p>
+              Recorded demo readings; not a medical monitoring device
+            </p>
+          </div>
+        </div>
+
+        <div id="vitalChart" class="chart-area"></div>
+
+        <div class="chart-legend">
+          <span>
+            <i class="legend-dot pink-dot"></i>
+            Heart rate
+          </span>
+
+          <span>
+            <i class="legend-dot black-dot"></i>
+            SpO₂
+          </span>
+        </div>
+
+      </article>
+
+      <!-- TRANSPORT HANDOFF -->
+      <article class="panel">
+
+        <div class="panel-heading">
+          <div>
+            <h3>Digital transport handoff</h3>
+            <p>Record a simulated transfer of care</p>
+          </div>
+        </div>
+
+        <form id="handoffForm" class="handoff-form">
+
+          <div class="field">
+            <label for="handoffFacility">Receiving facility</label>
+
+            <select id="handoffFacility">
+              <option>Central General</option>
+              <option>North Trauma Centre</option>
+              <option>East Community Hospital</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="ambulanceId">Ambulance / team ID</label>
+
+            <input
+              id="ambulanceId"
+              required
+              placeholder="e.g. AMB-01">
+          </div>
+
+          <button class="btn btn-dark" type="submit">
+            Record handoff
+          </button>
+
+        </form>
+
+        <div id="handoffLog" class="event-log"></div>
+
+      </article>
+
+    </section>
+
+    <!-- PAGE 4: FACILITY AND RESOURCE TRACKER -->
+    <section class="page" id="facilities">
+
+      <div class="page-intro">
+        <p class="eyebrow">CAPACITY & RESOURCE ALLOCATION</p>
+        <h2>Facility & Resource Tracker</h2>
+        <p>
+          Compare fictional hospital capacity and explore
+          a demo diversion recommendation.
+        </p>
+      </div>
+
+      <!-- FACILITY STATISTICS -->
+      <div class="stats-grid three-stats">
+
+        <article class="stat-card">
+          <p>Facilities listed</p>
+          <h3 id="facilityCount">3</h3>
+          <small>Sample network</small>
+        </article>
+
+        <article class="stat-card">
+          <p>Available ICU beds</p>
+          <h3 id="icuTotal">0</h3>
+          <small>Illustrative inventory</small>
+        </article>
+
+        <article class="stat-card">
+          <p>Available trauma beds</p>
+          <h3 id="traumaTotal">0</h3>
+          <small>Illustrative inventory</small>
+        </article>
+
+      </div>
+
+      <!-- HOSPITAL NETWORK -->
+      <article class="panel">
+
+        <div class="panel-heading">
+          <div>
+            <h3>Hospital network</h3>
+            <p>
+              Capacity values are sample data,
+              not live hospital availability
+            </p>
+          </div>
+
+          <button class="btn btn-light" id="recheckFacilities">
+            Recheck demo capacity
+          </button>
+        </div>
+
+        <div class="table-wrap">
+
+          <table>
+            <thead>
+              <tr>
+                <th>Facility</th>
+                <th>Area</th>
+                <th>ICU beds</th>
+                <th>Trauma beds</th>
+                <th>Capacity</th>
+              </tr>
+            </thead>
+
+            <tbody id="facilityTable"></tbody>
+          </table>
+
+        </div>
+
+      </article>
+
+      <!-- AMBULANCE DIVERSION PLANNER -->
+      <article class="panel diversion-panel">
+
+        <p class="eyebrow">DEMO DECISION SUPPORT</p>
+
+        <h3>Ambulance diversion planner</h3>
+
+        <p class="muted">
+          Rank listed facilities by sample bed availability.
+          Confirm actual capacity with dispatch before any real-world use.
+        </p>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="resourceType">Required resource</label>
+
+            <select id="resourceType">
+              <option value="trauma">Trauma bed</option>
+              <option value="icu">ICU bed</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="destinationArea">Incident area</label>
+
+            <select id="destinationArea">
+              <option>Zone A</option>
+              <option>Zone B</option>
+              <option>Zone C</option>
+            </select>
+          </div>
+
+        </div>
+
+        <button id="diversionBtn" class="btn btn-dark">
+          Recommend demo destination
+        </button>
+
+        <div id="diversionResult" class="route-result">
+          Choose a resource to see a sample recommendation.
+        </div>
+
+      </article>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>DracAid · Team Dragon</span>
+      <span>
+        Prototype only · Synthetic data · Not for clinical decisions
+      </span>
+    </footer>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
